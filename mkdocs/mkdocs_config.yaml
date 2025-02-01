@@ -1,0 +1,55 @@
+---
+- name: Setup MkDocs Container
+  hosts: mkdocs_vm
+  become: yes
+  
+  tasks:
+    - name: Install Docker dependencies
+      apt:
+        name: 
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+        state: present
+        update_cache: yes
+
+    - name: Add Docker GPG key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add Docker repository
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: docker-ce
+        state: present
+        update_cache: yes
+
+    - name: Create MkDocs directory
+      file:
+        path: /opt/mkdocs
+        state: directory
+
+    - name: Copy MkDocs files
+      copy:
+        src: "{{ item }}"
+        dest: /opt/mkdocs/
+      with_items:
+        - mkdocs.yml
+        - docs/
+
+    - name: Create Docker container
+      docker_container:
+        name: mkdocs
+        image: squidfunk/mkdocs-material
+        ports:
+          - "8000:8000"
+        volumes:
+          - /opt/mkdocs:/docs
+        command: serve --dev-addr=0.0.0.0:8000
+        restart_policy: always

@@ -1,0 +1,54 @@
+site_name: DevSecOps Portfolio
+nav:
+  - Home: index.md
+  - Infrastructure:
+      - Proxmox: 01-infrastructure/proxmox/README.md
+      - Synology NAS: 01-infrastructure/synology-nas/README.md
+      - Raspberry Pi Cluster: 01-infrastructure/raspberry-pi-cluster/README.md
+  - Core Services:
+      - Overview: 02-core-services/README.md
+      - GitLab: 02-core-services/gitlab/README.md
+      - MkDocs: 02-core-services/mkdocs/README.md
+      - Grafana: 02-core-services/monitoring/grafana/README.md
+      - Prometheus: 02-core-services/monitoring/prometheus/README.md
+      - Pi-hole: 02-core-services/pihole/README.md
+      - Traefik: 02-core-services/traefik/README.md
+      - Vault: 02-core-services/vault/README.md
+      - Wireguard: 02-core-services/wireguard/README.md
+      - Zabbix: 02-core-services/zabbix/README.md
+      - OpenVPN: 02-core-services/openvpn/README.md
+      - OpenSSH: 02-core-services/openssh/README.md
+      - Nginx reverse proxy: 02-core-services/nginx-reverse-proxy/README.md
+      - Docker: 02-core-services/docker/README.md
+  - Kubernetes:
+      - Setup: 03-kubernetes/setup/README.md
+      - Helm: 03-kubernetes/helm/README.md
+      - Rancher: 03-kubernetes/rancher/README.md
+  - CI/CD:
+      - GitLab Runner: 04-ci-cd/gitlab-runner/README.md
+      - Jenkins: 04-ci-cd/jenkins/README.md
+  - Home Automation:
+      - Overview: 05-home-automation/README.md
+      - Home Assistant: 05-home-automation/home-assistant/README.md
+  - Home Lab:
+      - Overview: 06-home-lab/README.md
+      - Docker: 06-home-lab/docker/README.md
+      - Kubernetes: 06-home-lab/kubernetes/README.md
+      - Traefik: 06-home-lab/traefik/README.md
+      - Wireguard: 06-home-lab/wireguard/README.md
+      - Pi-hole: 06-home-lab/pihole/README.md
+      - Zabbix: 06-home-lab/zabbix/README.md
+      - Monitoring: 06-home-lab/monitoring/README.md
+  - Security:
+      - Overview: 07-security/README.md
+      - OpenVPN: 07-security/openvpn/README.md
+      - OpenSSH: 07-security/openssh/README.md
+      - Wireguard: 07-security/wireguard/README.md
+      - Fail2Ban: 07-security/fail2ban/README.md
+      - UFW: 07-security/ufw/README.md
+      - Docker: 07-security/docker/README.md
+      - Docker Compose: 07-security/docker-compose/README.md
+      - Docker Swarm: 07-security/docker-swarm/README.md
+      - Docker Registry: 07-security/docker-registry/README.md
+      - Docker Trivy: 07-security/docker-trivy/README.md
+      - Docker BTRFS: 07-security/docker-btrfs/README.md
