@@ -1,2 +1,22 @@
-# portfolio
-The files in this repo represent tasks and activities that I have undertaken which demonstrate technical and personal skills.  Typically the projects represent upgrades to our home network, home automation, or self hosted services.  I choose to implement these projects in a way that reflects methods typically used in paid DevSecOps work.
+# Personal DevSecOps Portfolio
+
+The files in this repository showcase my technical and personal skills through various home lab projects and activities. These projects primarily focus on:
+
+- Home network infrastructure upgrades
+- Home automation solutions 
+- Self-hosted services and applications
+
+I approach these projects using industry-standard DevSecOps practices and methodologies, demonstrating my ability to:
+
+- Implement secure-by-design principles
+- Use Infrastructure as Code (IaC)
+- Follow CI/CD best practices
+- Apply monitoring and observability patterns
+
+## Repository Structure
+
+*[Add sections describing the organization of your portfolio]*
+
+## Technologies Used
+
+*[Add key technologies, tools, and frameworks used across projects]*

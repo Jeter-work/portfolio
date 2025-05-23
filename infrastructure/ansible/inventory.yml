@@ -1,0 +1,12 @@
+all:
+  children:
+    pihole:
+      hosts:
+        pihole01:
+          ansible_host: 192.168.1.x
+    k3s_master:
+      hosts:
+        master01:
+    k3s_workers:
+      hosts:
+        worker[01:03]:

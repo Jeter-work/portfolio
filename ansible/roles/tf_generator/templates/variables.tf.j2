@@ -1,0 +1,11 @@
+variable "proxmox_api_url" {
+  description = "Proxmox API endpoint"
+  type        = string
+  default     = "https://{{ hostvars[groups['proxmox'][0]]['ansible_host'] }}:8006/api2/json"
+}
+
+variable "network_prefix" {
+  description = "Network prefix for lab environment"
+  type        = string
+  default     = "{{ network_prefix }}"
+}

@@ -11,6 +11,11 @@
   - INTEL Atom D2700
   - 5 x 2TB drives, RAID 5
 
+- Synology NAS
+  - DS1522+
+  - AMD Ryzen R1600
+  - 5 x 2TB drives, RAID 5
+
 - Raspberry Pi Cluster
   - 10x Raspberry Pi 4 8GB RAM
   - Rocky 9 ARM

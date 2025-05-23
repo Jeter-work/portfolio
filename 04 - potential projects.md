@@ -1,24 +1,26 @@
+# CI/CD Evaluation
+  - Explore GitLab CI advanced features
+    - Multi-stage pipelines
+    - Custom runners
+    - Security scanning
+  - Alternative CI/CD tools comparison
+    - jenkins vs gitlab-runner
+    - argocd vs fluxcd
 
-# compare ci/cd
-  - fluxcd
-  - argocd
-  - jenkins
-  - gitlab-runner
-
-# deep dive containers
+# Container Technologies
   - docker-compose
   - docker-swarm
   - docker-registry
   - docker-trivy
   - docker-btrfs
-  - kubernetes
-  - k3s
-  - rancher
-  - helm
-  - kustomize
-  - helm
+  - Advanced k3s/rancher features
+    - High availability setup
+    - Custom resource definitions
+    - Advanced networking
+  - helm chart development
+  - kustomize patterns
 
-# set up security & monitoring
+# Security & Monitoring Suite
   - traefik
   - Grafana
   - Prometheus
@@ -29,9 +31,16 @@
   - openvpn
   - nginx-reverse-proxy
   - letsencrypt
-  - OpenVPN
 
-# other support tools
-  - minio
-  - packer
-  - code archive
+# Infrastructure Tools
+  - minio integration
+  - packer templates
+  - code archival strategy
+  - Advanced IaC patterns
+    - Terraform workspaces
+    - Custom providers
+    - State management
+  - GitOps workflows
+    - Multi-environment deployments
+    - Automated rollbacks
+    - Configuration drift detection

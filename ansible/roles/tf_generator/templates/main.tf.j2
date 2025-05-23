@@ -1,0 +1,33 @@
+terraform {
+  backend "local" {}
+}
+
+{% for host in groups['kubernetes'] %}
+resource "proxmox_vm_qemu" "k3s_{{ host }}" {
+  name = "{{ host }}"
+  target_node = "proxmox"
+  clone = "ubuntu-template"
+  
+  network {
+    bridge = "vmbr0"
+    model  = "virtio"
+  }
+  
+  ipconfig0 = "ip={{ hostvars[host]['ansible_host'] }}/24,gw={{ network_prefix }}.1"
+}
+{% endfor %}
+
+{% for host in groups['storage'] %}
+resource "proxmox_vm_qemu" "nas_{{ host }}" {
+  name = "{{ host }}"
+  target_node = "proxmox"
+  clone = "truenas-template"
+  
+  network {
+    bridge = "vmbr0"
+    model  = "virtio"
+  }
+  
+  ipconfig0 = "ip={{ hostvars[host]['ansible_host'] }}/24,gw={{ network_prefix }}.1"
+}
+{% endfor %}

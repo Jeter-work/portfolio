@@ -1,0 +1,12 @@
+- pi-hole on RPi 4 (with IaC)
+  - Terraform for initial network setup
+  - Ansible playbook for configuration
+  - DNS records in Git
+- pi cluster base (GitOps ready)
+  - k3sup for k3s bootstrap
+  - FluxCD operator installation
+  - Basic manifests in Git
+- NAS Implementation Phase 1
+  - Terraform modules for storage config
+  - Ansible for initial setup
+  - Basic network configuration
