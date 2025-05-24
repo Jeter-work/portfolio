@@ -1,0 +1,8 @@
+---
+network_config:
+  interface: eth0
+  ipv4_address: "{{ ansible_default_ipv4.address }}"
+  netmask: "{{ ansible_default_ipv4.netmask }}"
+dns_upstream:
+  primary: "1.1.1.1"
+  secondary: "1.0.0.1"
