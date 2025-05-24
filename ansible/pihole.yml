@@ -1,0 +1,10 @@
+---
+- name: Install and Configure Pi-hole
+  hosts: pihole
+  become: yes
+  vars_files:
+    - roles/pihole/vars/main.yml
+
+  roles:
+    - pihole
+

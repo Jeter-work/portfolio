@@ -1,0 +1,26 @@
+---
+- name: Install and Configure Pi-hole
+  hosts: pihole
+  become: yes
+  become_method: sudo
+  vars_files:
+    - roles/pihole/vars/main.yml
+
+  pre_tasks:
+    - name: Generate random password for Pi-hole web interface
+      set_fact:
+        pihole_password: "{{ lookup('password', '/dev/null length=32 chars=ascii_letters,digits') }}"
+      when: pihole_password is not defined
+      run_once: true
+
+  roles:
+    - pi-hole
+
+# # Regular maintenance run
+# ansible-playbook -i inventory/hosts.yml pihole-setup.yml
+
+# # Check what would change without making changes
+# ansible-playbook -i inventory/hosts.yml pihole-setup.yml --check
+
+# # View verbose output including version information
+# ansible-playbook -i inventory/hosts.yml pihole-setup.yml -v

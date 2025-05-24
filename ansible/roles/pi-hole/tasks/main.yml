@@ -1,0 +1,64 @@
+---
+- name: Update package cache
+  apt:
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
+- name: Install prerequisites
+  package:
+    name:
+      - curl
+      - git
+    state: present
+
+- name: Check if Pi-hole is installed
+  stat:
+    path: /usr/local/bin/pihole
+  register: pihole_binary
+
+- name: Download Pi-hole installer
+  get_url:
+    url: https://install.pi-hole.net
+    dest: /tmp/pihole.sh
+    mode: '0755'
+  when: not pihole_binary.stat.exists
+
+- name: Configure Pi-hole settings
+  template:
+    src: setupVars.conf.j2
+    dest: /etc/pihole/setupVars.conf
+    mode: '0644'
+  register: pihole_config
+
+- name: Run Pi-hole installer
+  command: bash /tmp/pihole.sh --unattended
+  args:
+    creates: /usr/local/bin/pihole
+  when: not pihole_binary.stat.exists
+
+- name: Update Pi-hole if already installed
+  command: pihole -up
+  when: pihole_binary.stat.exists
+  changed_when: false  # Since pihole -up doesn't provide useful changed status
+  register: pihole_update
+
+- name: Restart Pi-hole if configuration changed
+  command: pihole restartdns
+  when: pihole_config.changed
+
+- name: Clean up installer
+  file:
+    path: /tmp/pihole.sh
+    state: absent
+
+- name: Get Pi-hole version
+  command: pihole -v
+  register: pihole_version
+  changed_when: false
+  check_mode: false
+  when: pihole_binary.stat.exists
+
+- name: Display Pi-hole version
+  debug:
+    msg: "{{ pihole_version.stdout_lines }}"
+  when: pihole_binary.stat.exists
