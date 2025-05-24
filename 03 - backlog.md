@@ -1,0 +1,21 @@
+- NAS Implementation Phase 2
+  - Data Migration (Ansible managed)
+    - Audit existing shares
+    - Transfer data to temp storage
+    - Document share configurations as code
+- NAS Implementation Phase 3
+  - Rebuild primary NAS (fully automated)
+    - Storage allocation via Terraform
+      - 8 TB minio allocation
+      - 8 TB iSCSI allocation
+      - 8 TB network shares
+      - 8 TB expansion space
+    - Backup between nas units as configuration as code
+- Dedicated Linux workstation for devsecops tools
+  - RPi 5
+  - Linux
+  - ansible playbook to apply config
+  - Required tools:
+    - terraform, ansible, kubectl
+    - flux, helm, k3sup
+    - git, docker

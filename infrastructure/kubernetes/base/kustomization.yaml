@@ -1,0 +1,4 @@
+resources:
+  - gitlab-runner/
+  - monitoring/
+  - nas-operator/
