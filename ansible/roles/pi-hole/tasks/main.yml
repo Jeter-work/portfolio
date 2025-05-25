@@ -32,6 +32,13 @@
     mode: '0755'
   when: not pihole_binary.stat.exists
 
+- name: Create Pi-hole configuration directory
+  ansible.builtin.file:
+    path: /etc/pihole
+    state: directory
+    mode: '0755'
+  when: not pihole_binary.stat.exists
+
 - name: Configure Pi-hole settings
   ansible.builtin.template:
     src: setupVars.conf.j2
