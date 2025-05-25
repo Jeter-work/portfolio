@@ -1,4 +1,10 @@
 ---
+- name: cleanup installer
+  ansible.builtin.file:
+    path: /tmp/pihole.sh
+    state: absent
+  listen: restart after install
+
 - name: restart host
   ansible.builtin.reboot:
     reboot_timeout: 300

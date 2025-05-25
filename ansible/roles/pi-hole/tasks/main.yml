@@ -75,11 +75,6 @@
     msg: "Pi-hole update was successful"
   when: pihole_update.rc == 0
 
-- name: Clean up installer
-  ansible.builtin.file:
-    path: /tmp/pihole.sh
-    state: absent
-
 - name: Get Pi-hole version
   ansible.builtin.command:
     cmd: /usr/local/bin/pihole -v
