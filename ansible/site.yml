@@ -1,0 +1,10 @@
+---
+- name: Apply common configuration to all hosts
+  hosts: all
+  roles:
+    - common
+
+- name: Configure Pi-hole servers
+  hosts: piholes
+  roles:
+    - pi-hole

@@ -16,6 +16,7 @@
 
   roles:
     - pi-hole
+    - common
 
 # # Regular maintenance run
 # ansible-playbook -i inventory/hosts.yml pihole-setup.yml
