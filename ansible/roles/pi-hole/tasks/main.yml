@@ -51,6 +51,13 @@
     PIHOLE_SKIP_OS_CHECK: "true"
   notify: restart after install
 
+- name: Add devops user to pihole group
+  ansible.builtin.user:
+    name: devops
+    groups: pihole
+    append: yes
+  when: pihole_binary.stat.exists
+
 - name: Configure Pi-hole settings
   ansible.builtin.template:
     src: setupVars.conf.j2
