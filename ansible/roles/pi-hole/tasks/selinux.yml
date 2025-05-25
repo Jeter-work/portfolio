@@ -6,11 +6,21 @@
       - selinux-policy-targeted
     state: present
 
+- name: Set Pi-hole SELinux environment variable
+  ansible.builtin.lineinfile:
+    path: /etc/environment
+    line: "PIHOLE_SELINUX=true"
+    create: yes
+    mode: '0644'
+
 - name: Configure SELinux for Pi-hole
   ansible.builtin.seboolean:
-    name: httpd_can_network_connect
+    name: "{{ item }}"
     state: yes
     persistent: yes
+  loop:
+    - httpd_can_network_connect
+    - httpd_enable_cgi
 
 - name: Set SELinux context for Pi-hole directories
   ansible.builtin.sefcontext:

@@ -47,11 +47,14 @@
   register: pihole_config
 
 - name: Run Pi-hole installer
-  ansible.builtin.command:
-    cmd: bash /tmp/pihole.sh --unattended
+  ansible.builtin.shell:
+    cmd: source /etc/environment && bash /tmp/pihole.sh --unattended
   args:
     creates: /usr/local/bin/pihole
+    executable: /bin/bash
   when: not pihole_binary.stat.exists
+  environment:
+    PIHOLE_SELINUX: "true"
 
 - name: Update Pi-hole if already installed
   ansible.builtin.command:
@@ -85,4 +88,8 @@
 
 - name: Configure firewall
   ansible.builtin.include_tasks: firewall.yml
+  when: ansible_os_family == "RedHat"
+
+- name: Configure SELinux
+  ansible.builtin.include_tasks: selinux.yml
   when: ansible_os_family == "RedHat"
