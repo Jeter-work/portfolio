@@ -6,5 +6,12 @@
 
 - name: Configure Pi-hole servers
   hosts: piholes
-  roles:
-    - pi-hole
+  become: true
+  tasks:
+    - name: Include SELinux configuration
+      ansible.builtin.include_tasks: roles/pi-hole/tasks/selinux.yml
+      when: ansible_os_family == "RedHat"
+    
+    - name: Include Pi-hole role
+      ansible.builtin.include_role:
+        name: pi-hole

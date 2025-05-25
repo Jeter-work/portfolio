@@ -1,0 +1,19 @@
+---
+- name: Install SELinux tools
+  ansible.builtin.dnf:
+    name:
+      - policycoreutils-python-utils
+      - selinux-policy-targeted
+    state: present
+
+- name: Configure SELinux for Pi-hole
+  ansible.builtin.seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
+
+- name: Set SELinux context for Pi-hole directories
+  ansible.builtin.sefcontext:
+    target: '/etc/pihole(/.*)?'
+    setype: httpd_sys_content_t
+    state: present

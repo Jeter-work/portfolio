@@ -1,64 +1,81 @@
 ---
-- name: Update package cache
-  apt:
-    update_cache: yes
-  when: ansible_os_family == "Debian"
+- name: Include OS-specific variables
+  ansible.builtin.include_vars:
+    file: "rocky.yml"
+  when: ansible_distribution == "Rocky"
 
-- name: Install prerequisites
-  package:
-    name:
-      - curl
-      - git
+- name: Update package cache
+  ansible.builtin.dnf:
+    update_cache: yes
+  when: ansible_os_family == "RedHat"
+
+- name: Install EPEL repository
+  ansible.builtin.dnf:
+    name: epel-release
     state: present
 
+- name: Install prerequisites
+  ansible.builtin.dnf:
+    name: "{{ pihole_packages }}"
+    state: present
+  when: ansible_distribution == "Rocky"
+
 - name: Check if Pi-hole is installed
-  stat:
+  ansible.builtin.stat:
     path: /usr/local/bin/pihole
   register: pihole_binary
 
 - name: Download Pi-hole installer
-  get_url:
+  ansible.builtin.get_url:
     url: https://install.pi-hole.net
     dest: /tmp/pihole.sh
     mode: '0755'
   when: not pihole_binary.stat.exists
 
 - name: Configure Pi-hole settings
-  template:
+  ansible.builtin.template:
     src: setupVars.conf.j2
     dest: /etc/pihole/setupVars.conf
     mode: '0644'
   register: pihole_config
 
 - name: Run Pi-hole installer
-  command: bash /tmp/pihole.sh --unattended
+  ansible.builtin.command:
+    cmd: bash /tmp/pihole.sh --unattended
   args:
     creates: /usr/local/bin/pihole
   when: not pihole_binary.stat.exists
 
 - name: Update Pi-hole if already installed
-  command: pihole -up
+  ansible.builtin.command:
+    cmd: pihole -up
   when: pihole_binary.stat.exists
   changed_when: false  # Since pihole -up doesn't provide useful changed status
   register: pihole_update
 
 - name: Restart Pi-hole if configuration changed
-  command: pihole restartdns
+  ansible.builtin.command:
+    cmd: pihole restartdns
   when: pihole_config.changed
 
 - name: Clean up installer
-  file:
+  ansible.builtin.file:
     path: /tmp/pihole.sh
     state: absent
 
 - name: Get Pi-hole version
-  command: pihole -v
+  ansible.builtin.command:
+    cmd: pihole -v
   register: pihole_version
   changed_when: false
   check_mode: false
   when: pihole_binary.stat.exists
 
 - name: Display Pi-hole version
-  debug:
+  ansible.builtin.debug:
     msg: "{{ pihole_version.stdout_lines }}"
   when: pihole_binary.stat.exists
+
+- name: Configure firewall
+  ansible.builtin.include_tasks: firewall.yml
+  when: ansible_os_family == "RedHat"

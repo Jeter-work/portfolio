@@ -1,0 +1,17 @@
+---
+pihole_packages:
+  - curl
+  - git
+  - python3
+  - bash
+  - iproute
+  - sqlite
+  - cronie
+  - which
+  - net-tools
+  - bind-utils
+  - libcap
+
+pihole_services:
+  - lighttpd
+  - pihole-FTL
