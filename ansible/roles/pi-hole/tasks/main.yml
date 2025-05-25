@@ -55,6 +55,7 @@
   when: not pihole_binary.stat.exists
   environment:
     PIHOLE_SELINUX: "true"
+    PIHOLE_SKIP_OS_CHECK: "true"
 
 - name: Update Pi-hole if already installed
   ansible.builtin.command:
