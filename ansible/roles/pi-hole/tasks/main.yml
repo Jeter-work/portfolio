@@ -39,17 +39,6 @@
     mode: '0755'
   when: not pihole_binary.stat.exists
 
-- name: Configure Pi-hole settings
-  ansible.builtin.template:
-    src: setupVars.conf.j2
-    dest: /etc/pihole/setupVars.conf
-    mode: '0644'
-  register: pihole_config
-
-- name: Debug Pi-hole configuration
-  ansible.builtin.debug:
-    var: pihole_config
-
 - name: Run Pi-hole installer
   ansible.builtin.shell:
     cmd: source /etc/environment && bash /tmp/pihole.sh --unattended
@@ -60,6 +49,19 @@
   environment:
     PIHOLE_SELINUX: "true"
     PIHOLE_SKIP_OS_CHECK: "true"
+  notify: restart after install
+
+- name: Configure Pi-hole settings
+  ansible.builtin.template:
+    src: setupVars.conf.j2
+    dest: /etc/pihole/setupVars.conf
+    mode: '0644'
+  register: pihole_config
+  notify: reload pihole config
+
+- name: Debug Pi-hole configuration
+  ansible.builtin.debug:
+    var: pihole_config
 
 - name: Update Pi-hole if already installed
   ansible.builtin.command:
@@ -72,11 +74,6 @@
   ansible.builtin.debug:
     msg: "Pi-hole update was successful"
   when: pihole_update.rc == 0
-
-- name: Restart Pi-hole if configuration changed
-  ansible.builtin.command:
-    cmd: /usr/local/bin/pihole reloaddns
-  when: pihole_config.changed
 
 - name: Clean up installer
   ansible.builtin.file:

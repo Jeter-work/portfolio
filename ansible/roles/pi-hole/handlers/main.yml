@@ -1,0 +1,10 @@
+---
+- name: restart host
+  ansible.builtin.reboot:
+    reboot_timeout: 300
+  listen: restart after install
+
+- name: reload pihole dns
+  ansible.builtin.command:
+    cmd: /usr/local/bin/pihole reloaddns
+  listen: reload pihole config
