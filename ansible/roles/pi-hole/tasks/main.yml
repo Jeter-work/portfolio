@@ -75,7 +75,7 @@
 
 - name: Restart Pi-hole if configuration changed
   ansible.builtin.command:
-    cmd: pihole restartdns
+    cmd: pihole reloaddns
   when: pihole_config.changed
 
 - name: Clean up installer
