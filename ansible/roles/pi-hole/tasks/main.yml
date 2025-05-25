@@ -63,7 +63,7 @@
 
 - name: Update Pi-hole if already installed
   ansible.builtin.command:
-    cmd: pihole -up
+    cmd: pihole updatePihole
   when: pihole_binary.stat.exists
   changed_when: false  # Since pihole -up doesn't provide useful changed status
   register: pihole_update
